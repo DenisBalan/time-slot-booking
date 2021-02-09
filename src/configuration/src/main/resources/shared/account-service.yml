@@ -13,7 +13,7 @@ spring:
       host: localhost
       username: user
       password: user123456
-      database: database
+      database: account-database
       port: 27017
 
 server:
