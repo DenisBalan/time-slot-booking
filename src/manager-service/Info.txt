@@ -1,0 +1,1 @@
+Serviciul ce prestează metode de gestionare a serviciilor prestate de un utilizator.
