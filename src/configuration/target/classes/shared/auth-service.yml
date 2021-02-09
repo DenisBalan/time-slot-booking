@@ -1,0 +1,13 @@
+spring:
+  data:
+    mongodb:
+      host: localhost
+      username: user
+      password: user123456
+      database: database
+      port: 27017
+
+server:
+  servlet:
+    context-path: /uaa
+  port: 5000
