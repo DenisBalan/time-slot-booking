@@ -10,7 +10,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping(path="/calendar/api/v1")
+//@RequestMapping(path="/calendar/api/v1")
 public class CalendarController {
 
     @Autowired
