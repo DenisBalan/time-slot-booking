@@ -4,16 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f2edcc33-db28-4b54-9104-183ff0cbde92" name="Default Changelist" comment="" />
+    <list default="true" id="2e145962-7528-4b4c-ac41-f7df431be036" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="ProjectId" id="1oNWBBnL9Jk637tBMakhcZwa26Q" />
+  <component name="ProjectId" id="1oNZ2L0ZiviFZTKNsLwHmPkLBKq" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -26,6 +26,17 @@
     <property name="aspect.path.notification.shown" value="true" />
   </component>
   <component name="RunManager">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="ConfigurationApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="configuration" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.timebook.configuration.ConfigurationApplication" />
@@ -37,13 +48,12 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="f2edcc33-db28-4b54-9104-183ff0cbde92" name="Default Changelist" comment="" />
-      <created>1613127391661</created>
+      <changelist id="2e145962-7528-4b4c-ac41-f7df431be036" name="Default Changelist" comment="" />
+      <created>1613128800887</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1613127391661</updated>
-      <workItem from="1613127393124" duration="1369000" />
-      <workItem from="1613128779412" duration="11000" />
+      <updated>1613128800887</updated>
+      <workItem from="1613128801991" duration="1055000" />
     </task>
     <servers />
   </component>
@@ -60,6 +70,5 @@
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
 </project>

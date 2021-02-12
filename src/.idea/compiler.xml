@@ -11,6 +11,7 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="configuration" target="1.8" />
+      <module name="timebook" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
