@@ -1,0 +1,22 @@
+# security:
+#   oauth2:
+#     client:
+#       clientId: calendar-service
+#       clientSecret: user123456
+#       accessTokenUri: http://localhost:5000/uaa/oauth/token
+#       grant-type: client_credentials
+#       scope: server
+
+spring:
+  data:
+    mongodb:
+      host: localhost
+      username: root #user
+      password: root #user123456
+      database: calendar
+      port: 27017
+
+server:
+  servlet:
+    context-path: /calendar
+  port: 8090
