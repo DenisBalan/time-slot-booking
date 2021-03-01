@@ -1,1 +1,0 @@
-Serviciul ce prestează informații despre calendarul unui utilizator. Necesită AuthKey și id utilizatorului dorit.

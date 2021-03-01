@@ -1,1 +1,0 @@
-Serviciul ce prestează informații despre utilizator în baza AuthKey și Id utilizatorului dorit.
