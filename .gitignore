@@ -6,6 +6,11 @@
 bin
 target/
 .vscode
+src/*/.dockerignore
+
+*.iml
+.idea
+data
 
 # Log file
 *.log
