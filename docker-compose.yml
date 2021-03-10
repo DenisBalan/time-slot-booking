@@ -1,0 +1,18 @@
+version: "3"
+services:
+  account-service-mongodb:
+    image: "mongo"
+    volumes:
+      - "./data/account-service-mongodb:/data/db"
+      - "./seed/account-service-mongodb/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro"
+      
+  authentication-service-mongodb:
+    image: "mongo"
+    volumes:
+      - "./data/authentication-service-mongodb:/data/db"
+      - "./seed/authentication-service-mongodb/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro"
+      
+  configuration:
+    image: "denisbalan/configuration"
+    ports:
+      - 8888:8888
