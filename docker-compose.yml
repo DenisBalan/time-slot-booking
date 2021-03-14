@@ -19,37 +19,49 @@ services:
     image: "rabbitmq:3-management"
     volumes:
       - "./data/rabbitmq:/data"
-    ports:
-      - 15672:15672
       
   time-slot-configuration:
-    depends_on:
-      - time-slot-rabbitmq
     image: "denisbalan/configuration"
+    healthcheck:
+      test: ["CMD-SHELL", "netstat -tulpn | grep LISTEN"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
       
   time-slot-eureka-registry:
     depends_on:
-      - time-slot-configuration
+      time-slot-configuration:
+        condition: service_healthy
     image: "denisbalan/eureka-registry"
       
-  time-slot-turbine-stream-service:
+  time-slot-gateway:
     depends_on:
-      - time-slot-eureka-registry
-    image: "denisbalan/turbine-stream-service"
-      
-  time-slot-hystrix-monitoring:
-    depends_on:
-      - time-slot-turbine-stream-service
-    image: "denisbalan/hystrix-monitoring"
+      time-slot-configuration:
+        condition: service_healthy
+    image: "denisbalan/gateway"
       
   time-slot-authentication-service:
     depends_on:
-      - time-slot-hystrix-monitoring
+      time-slot-configuration:
+        condition: service_healthy
     image: "denisbalan/authentication-service"
     
   time-slot-account-service:
     depends_on:
-      - time-slot-authentication-service
-    image: "denisbalan/account-service"
+      time-slot-configuration:
+        condition: service_healthy
+    image: "denisbalan/account-service"    
+    
+  time-slot-turbine-stream-service:
+    depends_on:
+      time-slot-configuration:
+        condition: service_healthy
+    image: "denisbalan/turbine-stream-service"
+      
+  time-slot-hystrix-monitoring:
+    depends_on:
+      time-slot-configuration:
+        condition: service_healthy
+    image: "denisbalan/hystrix-monitoring"
     
     
