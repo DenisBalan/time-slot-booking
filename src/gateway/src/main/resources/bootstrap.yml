@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: gateway
+  cloud:
+    config:
+      uri: http://time-slot-configuration:8888
+      fail-fast: false
+      password: user123456
+      username: user
