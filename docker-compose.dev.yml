@@ -3,15 +3,7 @@ services:
   time-slot-rabbitmq:
     ports:
       - 15672:15672
-      - 5672:5672
-  
-  # time-slot-account-service-mongodb:
-    # ports:
-      # - 27017:27017
-  
-  # time-slot-authentication-service-mongodb:
-    # ports:
-      # - 27018:27017
+      - 5672:5672  
       
   time-slot-configuration:
     build: ./src/configuration
@@ -40,6 +32,11 @@ services:
     build: ./src/account-service
     ports:
       - 6000:6000
+    
+  time-slot-calendar-service:
+    build: ./src/account-service
+    ports:
+      - 6500:6500
     
   time-slot-gateway:
     build: ./src/gateway

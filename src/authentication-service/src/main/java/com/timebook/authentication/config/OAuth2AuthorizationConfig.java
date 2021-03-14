@@ -48,7 +48,7 @@ public class OAuth2AuthorizationConfig extends AuthorizationServerConfigurerAdap
                 .authorizedGrantTypes("client_credentials", "refresh_token")
                 .scopes("server")
                 .and()
-                .withClient("statistics-service")
+                .withClient("calendar-service")
                 .secret(pwd)
                 .authorizedGrantTypes("client_credentials", "refresh_token")
                 .scopes("server")

@@ -29,5 +29,11 @@ zuul:
         stripPrefix: false
         sensitiveHeaders:
 
+    calendar-service:
+        path: /calendar/**
+        serviceId: calendar-service
+        stripPrefix: false
+        sensitiveHeaders:
+
 server:
   port: 4000
