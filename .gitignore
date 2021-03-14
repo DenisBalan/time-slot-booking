@@ -6,7 +6,6 @@
 bin
 target/
 .vscode
-src/*/.dockerignore
 
 *.iml
 .idea

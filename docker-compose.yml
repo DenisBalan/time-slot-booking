@@ -1,18 +1,55 @@
 version: "3"
 services:
-  account-service-mongodb:
+  time-slot-account-service-mongodb:
     image: "mongo"
     volumes:
       - "./data/account-service-mongodb:/data/db"
       - "./seed/account-service-mongodb/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro"
       
-  authentication-service-mongodb:
+  time-slot-authentication-service-mongodb:
     image: "mongo"
     volumes:
       - "./data/authentication-service-mongodb:/data/db"
       - "./seed/authentication-service-mongodb/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro"
       
-  configuration:
-    image: "denisbalan/configuration"
+  time-slot-rabbitmq:
+    depends_on:
+      - time-slot-account-service-mongodb
+      - time-slot-authentication-service-mongodb      
+    image: "rabbitmq:3-management"
+    volumes:
+      - "./data/rabbitmq:/data"
     ports:
-      - 8888:8888
+      - 15672:15672
+      
+  time-slot-configuration:
+    depends_on:
+      - time-slot-rabbitmq
+    image: "denisbalan/configuration"
+      
+  time-slot-eureka-registry:
+    depends_on:
+      - time-slot-configuration
+    image: "denisbalan/eureka-registry"
+      
+  time-slot-turbine-stream-service:
+    depends_on:
+      - time-slot-eureka-registry
+    image: "denisbalan/turbine-stream-service"
+      
+  time-slot-hystrix-monitoring:
+    depends_on:
+      - time-slot-turbine-stream-service
+    image: "denisbalan/hystrix-monitoring"
+      
+  time-slot-authentication-service:
+    depends_on:
+      - time-slot-hystrix-monitoring
+    image: "denisbalan/authentication-service"
+    
+  time-slot-account-service:
+    depends_on:
+      - time-slot-authentication-service
+    image: "denisbalan/account-service"
+    
+    

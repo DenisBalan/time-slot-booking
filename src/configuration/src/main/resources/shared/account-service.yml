@@ -3,14 +3,14 @@ security:
     client:
       clientId: account-service
       clientSecret: user123456
-      accessTokenUri: http://localhost:5000/uaa/oauth/token
+      accessTokenUri: http://time-slot-authentication-service:5000/uaa/oauth/token
       grant-type: client_credentials
       scope: server
 
 spring:
   data:
     mongodb:
-      host: localhost
+      host: time-slot-account-service-mongodb
       username: user
       password: user123456
       database: account-database
