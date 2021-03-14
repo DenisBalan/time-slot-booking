@@ -20,55 +20,74 @@ services:
     volumes:
       - "./data/rabbitmq:/data"
       
-  # time-slot-configuration:
-    # image: "denisbalan/configuration"
-    # healthcheck:
-      # test: ["CMD-SHELL", "netstat -tulpn | grep LISTEN"]
-      # interval: 10s
-      # timeout: 5s
-      # retries: 5
+  time-slot-configuration:
+    image: "denisbalan/configuration"
+    healthcheck:
+      test: ["CMD-SHELL", "netstat -tulpn | grep LISTEN"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
       
-  # time-slot-eureka-registry:
-    # depends_on:
-      # time-slot-configuration:
-        # condition: service_healthy
-    # image: "denisbalan/eureka-registry"
-    # healthcheck:
-      # test: ["CMD-SHELL", "netstat -tulpn | grep LISTEN"]
-      # interval: 10s
-      # timeout: 5s
-      # retries: 5
+  time-slot-eureka-registry:
+    depends_on:
+      time-slot-configuration:
+        condition: service_healthy
+    image: "denisbalan/eureka-registry"
+    healthcheck:
+      test: ["CMD-SHELL", "netstat -tulpn | grep LISTEN"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+     
+  time-slot-turbine-stream-service:
+    depends_on:
+      time-slot-eureka-registry:
+        condition: service_healthy
+    image: "denisbalan/turbine-stream-service"
+    healthcheck:
+      test: ["CMD-SHELL", "netstat -tulpn | grep LISTEN"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
       
-  # time-slot-gateway:
-    # depends_on:
-      # time-slot-configuration:
-        # condition: service_healthy
-    # image: "denisbalan/gateway"
+  time-slot-hystrix-monitoring:
+    depends_on:
+      time-slot-turbine-stream-service:
+        condition: service_healthy
+    image: "denisbalan/hystrix-monitoring"
+    healthcheck:
+      test: ["CMD-SHELL", "netstat -tulpn | grep LISTEN"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
       
-  # time-slot-authentication-service:
-    # depends_on:
-      # time-slot-configuration:
-        # condition: service_healthy
-    # image: "denisbalan/authentication-service"
+  time-slot-authentication-service:
+    depends_on:
+      time-slot-hystrix-monitoring:
+        condition: service_healthy
+    image: "denisbalan/authentication-service"
+    healthcheck:
+      test: ["CMD-SHELL", "netstat -tulpn | grep LISTEN"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     
-  # time-slot-account-service:
-    # depends_on:
-      # time-slot-configuration:
-        # condition: service_healthy
-    # image: "denisbalan/account-service"    
-    
-  # time-slot-turbine-stream-service:
-    # depends_on:
-      # time-slot-configuration:
-        # condition: service_healthy
-      # time-slot-eureka-registry:
-        # condition: service_healthy
-    # image: "denisbalan/turbine-stream-service"
+  time-slot-account-service:
+    depends_on:
+      time-slot-authentication-service:
+        condition: service_healthy
+    image: "denisbalan/account-service"    
+    healthcheck:
+      test: ["CMD-SHELL", "netstat -tulpn | grep LISTEN"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
       
-  # time-slot-hystrix-monitoring:
-    # depends_on:
-      # time-slot-configuration:
-        # condition: service_healthy
-    # image: "denisbalan/hystrix-monitoring"
-    
+  time-slot-gateway:
+    depends_on:
+      time-slot-authentication-service:
+        condition: service_healthy
+      time-slot-account-service:
+        condition: service_healthy
+    image: "denisbalan/gateway"
     

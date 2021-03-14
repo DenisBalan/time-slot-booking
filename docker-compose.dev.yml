@@ -5,39 +5,43 @@ services:
       - 15672:15672
       - 5672:5672
   
-  time-slot-account-service-mongodb:
-    ports:
-      - 27017:27017
+  # time-slot-account-service-mongodb:
+    # ports:
+      # - 27017:27017
   
-  time-slot-authentication-service-mongodb:
+  # time-slot-authentication-service-mongodb:
+    # ports:
+      # - 27018:27017
+      
+  time-slot-configuration:
+    build: ./src/configuration
+      
+  time-slot-eureka-registry:
+    build: ./src/eureka-registry
     ports:
-      - 27018:27017
+      - 8761:8761
       
-  # time-slot-configuration:
-    # build: ./src/configuration
+  time-slot-turbine-stream-service:
+    ports:
+      - 8080:8080
+    build: ./src/turbine-stream-service
       
-  # time-slot-eureka-registry:
-    # build: ./src/eureka-registry
-    # ports:
-      # - 8761:8761
+  time-slot-hystrix-monitoring:
+    build: ./src/hystrix-monitoring
+    ports:
+      - 9999:9000
       
-  # time-slot-turbine-stream-service:
-    # ports:
-      # - 8989:8989
-    # build: ./src/turbine-stream-service
-      
-  # time-slot-hystrix-monitoring:
-    # build: ./src/hystrix-monitoring
-    # ports:
-      # - 9999:9000
-      
-  # time-slot-authentication-service:
-    # build: ./src/authentication-service
+  time-slot-authentication-service:
+    build: ./src/authentication-service
+    ports:
+      - 5000:5000
     
-  # time-slot-account-service:
-    # build: ./src/account-service
+  time-slot-account-service:
+    build: ./src/account-service
+    ports:
+      - 6000:6000
     
-  # time-slot-gateway:
-    # build: ./src/gateway
-    # ports:
-      # - 4000:4000
+  time-slot-gateway:
+    build: ./src/gateway
+    ports:
+      - 4000:4000
