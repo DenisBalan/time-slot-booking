@@ -20,48 +20,55 @@ services:
     volumes:
       - "./data/rabbitmq:/data"
       
-  time-slot-configuration:
-    image: "denisbalan/configuration"
-    healthcheck:
-      test: ["CMD-SHELL", "netstat -tulpn | grep LISTEN"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
+  # time-slot-configuration:
+    # image: "denisbalan/configuration"
+    # healthcheck:
+      # test: ["CMD-SHELL", "netstat -tulpn | grep LISTEN"]
+      # interval: 10s
+      # timeout: 5s
+      # retries: 5
       
-  time-slot-eureka-registry:
-    depends_on:
-      time-slot-configuration:
-        condition: service_healthy
-    image: "denisbalan/eureka-registry"
+  # time-slot-eureka-registry:
+    # depends_on:
+      # time-slot-configuration:
+        # condition: service_healthy
+    # image: "denisbalan/eureka-registry"
+    # healthcheck:
+      # test: ["CMD-SHELL", "netstat -tulpn | grep LISTEN"]
+      # interval: 10s
+      # timeout: 5s
+      # retries: 5
       
-  time-slot-gateway:
-    depends_on:
-      time-slot-configuration:
-        condition: service_healthy
-    image: "denisbalan/gateway"
+  # time-slot-gateway:
+    # depends_on:
+      # time-slot-configuration:
+        # condition: service_healthy
+    # image: "denisbalan/gateway"
       
-  time-slot-authentication-service:
-    depends_on:
-      time-slot-configuration:
-        condition: service_healthy
-    image: "denisbalan/authentication-service"
+  # time-slot-authentication-service:
+    # depends_on:
+      # time-slot-configuration:
+        # condition: service_healthy
+    # image: "denisbalan/authentication-service"
     
-  time-slot-account-service:
-    depends_on:
-      time-slot-configuration:
-        condition: service_healthy
-    image: "denisbalan/account-service"    
+  # time-slot-account-service:
+    # depends_on:
+      # time-slot-configuration:
+        # condition: service_healthy
+    # image: "denisbalan/account-service"    
     
-  time-slot-turbine-stream-service:
-    depends_on:
-      time-slot-configuration:
-        condition: service_healthy
-    image: "denisbalan/turbine-stream-service"
+  # time-slot-turbine-stream-service:
+    # depends_on:
+      # time-slot-configuration:
+        # condition: service_healthy
+      # time-slot-eureka-registry:
+        # condition: service_healthy
+    # image: "denisbalan/turbine-stream-service"
       
-  time-slot-hystrix-monitoring:
-    depends_on:
-      time-slot-configuration:
-        condition: service_healthy
-    image: "denisbalan/hystrix-monitoring"
+  # time-slot-hystrix-monitoring:
+    # depends_on:
+      # time-slot-configuration:
+        # condition: service_healthy
+    # image: "denisbalan/hystrix-monitoring"
     
     
