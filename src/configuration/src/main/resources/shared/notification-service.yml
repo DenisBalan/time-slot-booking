@@ -3,7 +3,7 @@ security:
     client:
       clientId: notification-service
       clientSecret: user123456
-      accessTokenUri: http://localhost:5000/uaa/oauth/token
+      accessTokenUri: http://time-slot-authentication-service:5000/uaa/oauth/token
       grant-type: client_credentials
       scope: server
 
@@ -12,6 +12,10 @@ server:
     context-path: /notifications
   port: 8000
 
+feign:
+  hystrix:
+    enabled: true
+    
 remind:
   cron: 0 0 0 * * *
   email:
