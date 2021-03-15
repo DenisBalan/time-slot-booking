@@ -1,5 +1,21 @@
 version: "3"
 services:
+  time-slot-account-service-mongodb:
+    ports:
+      - 27016:27017
+      
+  time-slot-authentication-service-mongodb:
+    ports:
+      - 27017:27017
+      
+  time-slot-calendar-service-mongodb:
+    ports:
+      - 27018:27017
+      
+  time-slot-notification-service-mongodb:
+    ports:
+      - 27019:27017
+      
   time-slot-rabbitmq:
     ports:
       - 15672:15672
