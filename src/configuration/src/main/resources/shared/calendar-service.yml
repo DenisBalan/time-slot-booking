@@ -1,0 +1,26 @@
+security:
+  oauth2:
+    client:
+      clientId: calendar-service
+      clientSecret: user123456
+      accessTokenUri: http://time-slot-authentication-service:5000/uaa/oauth/token
+      grant-type: client_credentials
+      scope: server
+
+spring:
+  data:
+    mongodb:
+      host: time-slot-calendar-service-mongodb
+      username: user
+      password: user123456
+      database: calendar-database
+      port: 27017
+
+server:
+  servlet:
+    context-path: /calendar
+  port: 6500
+
+feign:
+  hystrix:
+    enabled: true

@@ -1,5 +1,15 @@
 # Compiled class file
 *.class
+.settings
+.classpath
+.project
+bin
+target/
+.vscode
+
+*.iml
+.idea
+data
 
 # Log file
 *.log

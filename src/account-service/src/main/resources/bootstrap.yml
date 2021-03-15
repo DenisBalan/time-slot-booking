@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: account-service
+  cloud:
+    config:
+      uri: http://time-slot-configuration:8888
+      fail-fast: true
+      password: user123456
+      username: user

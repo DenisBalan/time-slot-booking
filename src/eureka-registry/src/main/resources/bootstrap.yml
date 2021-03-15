@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: eureka-registry
+  cloud:
+    config:
+      uri: http://time-slot-configuration:8888
+      fail-fast: false
+      password: user123456
+      username: user
+
+eureka:
+  instance:
+    prefer-ip-address: false
+  client:
+    register-with-eureka: false
+    registerWithEureka: false
+    fetchRegistry: false
+    server:
+      waitTimeInMsWhenSyncEmpty: 0

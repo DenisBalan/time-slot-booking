@@ -1,0 +1,135 @@
+version: "3"
+services:
+  time-slot-account-service-mongodb:
+    image: "mongo"
+    volumes:
+      - "./data/account-service-mongodb:/data/db"
+      - "./seed/account-service-mongodb/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro"
+      
+  time-slot-authentication-service-mongodb:
+    image: "mongo"
+    volumes:
+      - "./data/authentication-service-mongodb:/data/db"
+      - "./seed/authentication-service-mongodb/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro"
+      
+  time-slot-calendar-service-mongodb:
+    image: "mongo"
+    volumes:
+      - "./data/calendar-service-mongodb:/data/db"
+      - "./seed/calendar-service-mongodb/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro"
+      
+  time-slot-notification-service-mongodb:
+    image: "mongo"
+    volumes:
+      - "./data/notification-service-mongodb:/data/db"
+      - "./seed/notification-service-mongodb/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro"
+      
+  time-slot-rabbitmq:
+    depends_on:
+      - time-slot-account-service-mongodb
+      - time-slot-authentication-service-mongodb      
+      - time-slot-calendar-service-mongodb
+      - time-slot-notification-service-mongodb
+    image: "rabbitmq:3-management"
+    volumes:
+      - "./data/rabbitmq:/data"
+      
+  time-slot-configuration:
+    image: "denisbalan/configuration"
+    healthcheck:
+      test: ["CMD-SHELL", "netstat -tulpn | grep LISTEN"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      
+  time-slot-eureka-registry:
+    depends_on:
+      time-slot-configuration:
+        condition: service_healthy
+    image: "denisbalan/eureka-registry"
+    healthcheck:
+      test: ["CMD-SHELL", "netstat -tulpn | grep LISTEN"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+     
+  time-slot-turbine-stream-service:
+    depends_on:
+      time-slot-eureka-registry:
+        condition: service_healthy
+    image: "denisbalan/turbine-stream-service"
+    healthcheck:
+      test: ["CMD-SHELL", "netstat -tulpn | grep LISTEN"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      
+  time-slot-hystrix-monitoring:
+    depends_on:
+      time-slot-turbine-stream-service:
+        condition: service_healthy
+    image: "denisbalan/hystrix-monitoring"
+    healthcheck:
+      test: ["CMD-SHELL", "netstat -tulpn | grep LISTEN"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      
+  time-slot-authentication-service:
+    depends_on:
+      time-slot-hystrix-monitoring:
+        condition: service_healthy
+    image: "denisbalan/authentication-service"
+    healthcheck:
+      test: ["CMD-SHELL", "netstat -tulpn | grep LISTEN"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    
+  time-slot-account-service:
+    depends_on:
+      time-slot-authentication-service:
+        condition: service_healthy
+    image: "denisbalan/account-service"    
+    healthcheck:
+      test: ["CMD-SHELL", "netstat -tulpn | grep LISTEN"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    
+  time-slot-calendar-service:
+    depends_on:
+      time-slot-account-service:
+        condition: service_healthy
+    image: "denisbalan/calendar-service"    
+    healthcheck:
+      test: ["CMD-SHELL", "netstat -tulpn | grep LISTEN"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    
+  time-slot-notification-service:
+    depends_on:
+      time-slot-calendar-service:
+        condition: service_healthy
+    image: "denisbalan/notification-service"    
+    healthcheck:
+      test: ["CMD-SHELL", "netstat -tulpn | grep LISTEN"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      
+  time-slot-gateway:
+    depends_on:
+      time-slot-authentication-service:
+        condition: service_healthy
+      time-slot-account-service:
+        condition: service_healthy
+      time-slot-calendar-service:
+        condition: service_healthy
+      time-slot-notification-service:
+        condition: service_healthy
+    image: "denisbalan/gateway"
+    ports:
+      - 80:4000
+    

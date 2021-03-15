@@ -1,0 +1,49 @@
+version: "3"
+services:
+  time-slot-rabbitmq:
+    ports:
+      - 15672:15672
+      - 5672:5672  
+      
+  time-slot-configuration:
+    build: ./src/configuration
+      
+  time-slot-eureka-registry:
+    build: ./src/eureka-registry
+    ports:
+      - 8761:8761
+      
+  time-slot-turbine-stream-service:
+    ports:
+      - 8080:8080
+    build: ./src/turbine-stream-service
+      
+  time-slot-hystrix-monitoring:
+    build: ./src/hystrix-monitoring
+    ports:
+      - 9999:9000
+      
+  time-slot-authentication-service:
+    build: ./src/authentication-service
+    ports:
+      - 5000:5000
+    
+  time-slot-account-service:
+    build: ./src/account-service
+    ports:
+      - 6000:6000
+    
+  time-slot-calendar-service:
+    build: ./src/account-service
+    ports:
+      - 6500:6500
+    
+  time-slot-notification-service:
+    build: ./src/account-service
+    ports:
+      - 8000:8000
+    
+  time-slot-gateway:
+    build: ./src/gateway
+    ports:
+      - 4000:4000
