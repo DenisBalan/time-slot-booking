@@ -38,6 +38,11 @@ services:
     ports:
       - 6500:6500
     
+  time-slot-notification-service:
+    build: ./src/account-service
+    ports:
+      - 8000:8000
+    
   time-slot-gateway:
     build: ./src/gateway
     ports:

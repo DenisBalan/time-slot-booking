@@ -18,11 +18,18 @@ services:
       - "./data/calendar-service-mongodb:/data/db"
       - "./seed/calendar-service-mongodb/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro"
       
+  time-slot-notification-service-mongodb:
+    image: "mongo"
+    volumes:
+      - "./data/notification-service-mongodb:/data/db"
+      - "./seed/notification-service-mongodb/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro"
+      
   time-slot-rabbitmq:
     depends_on:
       - time-slot-account-service-mongodb
       - time-slot-authentication-service-mongodb      
-      - time-slot-calendar-service-mongodb      
+      - time-slot-calendar-service-mongodb
+      - time-slot-notification-service-mongodb
     image: "rabbitmq:3-management"
     volumes:
       - "./data/rabbitmq:/data"
@@ -100,6 +107,17 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    
+  time-slot-notification-service:
+    depends_on:
+      time-slot-calendar-service:
+        condition: service_healthy
+    image: "denisbalan/notification-service"    
+    healthcheck:
+      test: ["CMD-SHELL", "netstat -tulpn | grep LISTEN"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
       
   time-slot-gateway:
     depends_on:
@@ -107,5 +125,11 @@ services:
         condition: service_healthy
       time-slot-account-service:
         condition: service_healthy
+      time-slot-calendar-service:
+        condition: service_healthy
+      time-slot-notification-service:
+        condition: service_healthy
     image: "denisbalan/gateway"
+    ports:
+      - 80:4000
     
