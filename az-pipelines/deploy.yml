@@ -4,14 +4,10 @@ parameters:
   imageName: ''
   folderName: ''
 
-variables:
-  dockerHub: '${{ parameters.dockerHub }}'
-  tag: '${{ parameters.tag }}'
-  imageName: '${{ parameters.imageName }}'
-  folderName: '${{ parameters.folderName }}'
-
 jobs:  
 - job: Build and push
+  variables: 
+    - ${{ parameters }}
   displayName: 'Build docker image $(imageName)'
   pool:
     vmImage: 'ubuntu-latest'
