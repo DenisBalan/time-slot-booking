@@ -6,7 +6,6 @@ parameters:
 
 jobs:  
   - deployment: Build and push
-    displayName: ${{ parameters.displayName }}
     displayName: 'Build docker image $(imageName)'
     variables: 
       - ${{ parameters }}
