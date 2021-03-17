@@ -32,4 +32,4 @@ stages:
           tag: '$(tag)'
           imageName: 'time-slot-$(folderName)'
           folderName: '$(folderName)'
-          name: '$(name)'
+          name: $(name)
