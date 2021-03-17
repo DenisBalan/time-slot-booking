@@ -6,7 +6,10 @@ trigger:
   paths:
     exclude:
       - README.*
-      
+
+resources:
+- repo: self
+
 parameters:
 - name: 'folders'
   type: object
