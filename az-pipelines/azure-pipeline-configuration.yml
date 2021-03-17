@@ -32,6 +32,8 @@ stages:
             displayName: Init
       - ${{each folderName in parameters.folders}}:
         - template: deploy.yml
+          dependsOn:
+            - Init
           parameters:
             dockerHub: '$(dockerHub)'
             tag: '$(tag)'
