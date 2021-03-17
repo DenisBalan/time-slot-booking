@@ -17,7 +17,7 @@ variables:
   dockerHub: 'docker-denisbalan'
 
 stages:
-  - stage: Build all
+  - stage: Build_all
     jobs:
         - template: deploy.yml
           parameters:

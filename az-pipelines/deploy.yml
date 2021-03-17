@@ -5,7 +5,7 @@ parameters:
   folderName: ''
 
 jobs:  
-  - deployment: Build and push
+  - deployment: 'Build and push'
     displayName: 'Build docker image ${{ parameters.imageName }})'
     pool:
       vmImage: 'ubuntu-latest'
