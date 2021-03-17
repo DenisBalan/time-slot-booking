@@ -25,7 +25,7 @@ stages:
         displayName: Init
         steps:
           - pwsh: |     
-              Write-Host "${{ parameters.folders }}"
+              Write-Host "Init"
             displayName: Init
       - ${{each folderName in parameters.folders}}:
         - template: deploy.yml
