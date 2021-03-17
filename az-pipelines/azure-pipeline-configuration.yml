@@ -30,10 +30,9 @@ stages:
               Write-Host "Init"
               find | sed 's|[^/]*/|- |g'
             displayName: Init
-      - ${{each folderName in parameters.folders}}:
+      - job: Docker
+        displayName: Docker
         - template: deploy.yml
-          dependsOn:
-            - Init
           parameters:
             dockerHub: '$(dockerHub)'
             tag: '$(tag)'
