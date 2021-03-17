@@ -6,9 +6,7 @@ parameters:
 
 jobs:  
 - job: Build and push
-  displayName: 'Build docker image $(imageName)'
-  variables: 
-    - ${{ parameters }}
+  displayName: 'Build docker image ${{ parameters.imageName }}'
   pool:
     vmImage: 'ubuntu-latest'
   steps:
