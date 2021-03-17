@@ -33,7 +33,7 @@ stages:
             dockerHub: '$(dockerHub)'
             tag: '$(tag)'
             imageName: 'time-slot-$(folderName)'
-            folderName: '$(folderName)'
+            folderName: '${{ folderName }}'
     # jobs:
         # - template: deploy.yml
           # parameters:
