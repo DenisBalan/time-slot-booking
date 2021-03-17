@@ -3,9 +3,10 @@ parameters:
   tag: ''
   imageName: ''
   folderName: ''
+  name: ''
 
 jobs:  
-- job: Build and push
+- job: ${{ parameters.name }}
   displayName: 'Build docker image ${{ parameters.imageName }}'
   pool:
     vmImage: 'ubuntu-latest'
