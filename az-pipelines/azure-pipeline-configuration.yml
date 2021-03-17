@@ -14,7 +14,6 @@ variables:
   tag: 'latest'
   dockerHub: 'docker-denisbalan'
   folderName: 'configuration'
-  name: 'static_build'
 
 stages:
   - stage: Build_all
@@ -31,5 +30,5 @@ stages:
           name: static_build
           dockerHub: $(dockerHub)
           tag: $(tag)
-          imageName: time-slot-$(folderName)
+          imageName: denisbalan/time-slot-$(folderName)
           folderName: $(folderName)
