@@ -10,15 +10,11 @@ trigger:
 resources:
 - repo: self
 
-parameters:
-- name: 'folders'
-  type: object
-  default:
-   - configuration
-
 variables:
   tag: 'latest'
   dockerHub: 'docker-denisbalan'
+  folderName: 'configuration'
+  name: 'static-build'
 
 stages:
   - stage: Build_all
@@ -34,6 +30,6 @@ stages:
         parameters:
           dockerHub: '$(dockerHub)'
           tag: '$(tag)'
-          imageName: 'time-slot-${{ folderName }}'
-          folderName: '${{ folderName }}'
-          name: '${{ folderName.name }}'
+          imageName: 'time-slot-$(folderName)'
+          folderName: '$(folderName)'
+          name: '$(name)'
