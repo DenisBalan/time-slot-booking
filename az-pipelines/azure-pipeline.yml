@@ -6,13 +6,17 @@ trigger:
   paths:
     exclude:
       - README.*
+      
+parameters:
+- name: 'folders'
+  type: object
+  default: 
+    - configuration
+    - eureka-registry
 
 variables:
   tag: 'latest'
   dockerHub: 'docker-denisbalan'
-  folders:
-    - configuration
-    - eureka-registry
   
 pool:
   vmImage: 'ubuntu-latest'
@@ -20,7 +24,7 @@ pool:
 stages:
   - stage: Build all
     jobs:
-      - ${{each folderName in variables.folders}}:
+      - ${{each folderName in parameters.folders}}:
         - template: deploy.yml
           parameters:
             dockerHub: '$(dockerHub)'
