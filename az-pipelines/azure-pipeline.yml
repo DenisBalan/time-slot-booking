@@ -11,8 +11,12 @@ parameters:
 - name: 'folders'
   type: object
   default:
-   - configuration
-   - gateway
+   - configuration: 
+     name: configuration
+     folder: configuration
+   - gateway: 
+     name: gateway
+     folder: gateway
 
 variables:
   tag: 'latest'
@@ -33,7 +37,8 @@ stages:
             dockerHub: '$(dockerHub)'
             tag: '$(tag)'
             imageName: 'time-slot-${{ folderName }}'
-            folderName: '${{ folderName }}'
+            folderName: '${{ folderName.folder }}'
+            name: '${{ folderName.name }}'
     # jobs:
         # - template: deploy.yml
           # parameters:
