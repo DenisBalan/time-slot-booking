@@ -1,0 +1,36 @@
+trigger:
+  branches:
+    include:
+      - feature/*
+      - main
+  paths:
+    exclude:
+      - README.*
+
+resources:
+- repo: self
+
+variables:
+  tag: 'latest'
+  dockerHub: 'docker-denisbalan'
+  folderName: 'hystrix-monitoring'
+
+stages:
+  - stage: Build_all
+    jobs:
+      - job: Init
+        displayName: Init
+        steps:
+          - pwsh: |     
+              Write-Host "Init"
+              find | sed 's|[^/]*/|- |g'
+            displayName: Init
+      - template: deploy.yml
+        parameters:
+          name: static_build
+          dockerHub: $(dockerHub)
+          tag: $(tag)
+          imageName: denisbalan/time-slot-$(folderName)
+          folderName: $(folderName)
+
+

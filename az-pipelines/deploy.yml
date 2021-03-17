@@ -1,0 +1,29 @@
+parameters:
+  dockerHub: ''
+  tag: ''
+  imageName: ''
+  folderName: ''
+  name: ''
+
+jobs:  
+- job: ${{ parameters.name }}
+  displayName: 'Build docker image ${{ parameters.imageName }}'
+  pool:
+    vmImage: 'ubuntu-latest'
+  steps:
+    - task: Docker@2
+      displayName: 'Build locally image ${{ parameters.imageName }}'
+      inputs:
+        containerRegistry: '${{ parameters.dockerHub }}'
+        repository: '${{ parameters.imageName }}'
+        command: 'build'
+        Dockerfile: '**/${{ parameters.folderName }}/Dockerfile'
+        buildContext: 'src/${{ parameters.folderName }}/'
+        tags: '${{ parameters.tag }}'
+    - task: Docker@2
+      displayName: 'Push image ${{ parameters.imageName }}'
+      inputs:
+        containerRegistry: '${{ parameters.dockerHub }}'
+        repository: '${{ parameters.imageName }}'
+        command: 'push'
+        tags: '${{ parameters.tag }}'
