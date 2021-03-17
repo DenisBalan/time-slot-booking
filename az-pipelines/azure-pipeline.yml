@@ -1,0 +1,28 @@
+trigger:
+  branches:
+    include:
+      - *
+  paths:
+    exclude:
+      - README.*
+
+variables:
+  tag: 'latest'
+  dockerHub: 'docker-denisbalan'
+  folders:
+    - configuration
+    - eureka-registry
+  
+pool:
+  vmImage: 'ubuntu-latest'
+
+stages:
+  - stage: Build all
+    jobs:
+      - ${{each folderName in variables.folders}}:
+        - template: deploy.yml
+          parameters:
+            dockerHub: '$(dockerHub)'
+            tag: '$(tag)'
+            imageName: 'time-slot-$(folderName)'
+            folderName: 'src/$(folderName)'
