@@ -5,27 +5,32 @@ parameters:
   folderName: ''
 
 jobs:  
-- job: Build and push
-  variables: 
-    - ${{ parameters }}
-  displayName: 'Build docker image $(imageName)'
-  pool:
-    vmImage: 'ubuntu-latest'
-  steps:
-  - task: Docker@2
-    displayName: 'Build locally image $(imageName)'
-    inputs:
-      containerRegistry: '$(dockerHub)'
-      repository: '$(imageName)'
-      command: 'build'
-      Dockerfile: '**/$(folderName)/Dockerfile'
-      buildContext: '**/$(folderName)/'
-      tags: '$(tag)'
-  - task: Docker@2
-    displayName: 'Push image $(imageName)'
-    inputs:
-      containerRegistry: '$(dockerHub)'
-      repository: '$(imageName)'
-      command: 'push'
-      tags: |
-        $(tag)
+  - deployment: Build and push
+    displayName: ${{ parameters.displayName }}
+    displayName: 'Build docker image $(imageName)'
+    variables: 
+      - ${{ parameters }}
+    pool:
+      vmImage: 'ubuntu-latest'
+    environment: 'dev'
+        strategy: 
+          runOnce: 
+            deploy:
+              steps:
+                - task: Docker@2
+                  displayName: 'Build locally image $(imageName)'
+                  inputs:
+                    containerRegistry: '$(dockerHub)'
+                    repository: '$(imageName)'
+                    command: 'build'
+                    Dockerfile: '**/$(folderName)/Dockerfile'
+                    buildContext: '**/$(folderName)/'
+                    tags: '$(tag)'
+                - task: Docker@2
+                  displayName: 'Push image $(imageName)'
+                  inputs:
+                    containerRegistry: '$(dockerHub)'
+                    repository: '$(imageName)'
+                    command: 'push'
+                    tags: |
+                      $(tag)
