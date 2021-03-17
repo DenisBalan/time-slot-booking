@@ -13,7 +13,7 @@ resources:
 variables:
   tag: 'latest'
   dockerHub: 'docker-denisbalan'
-  folderName: 'configuration'
+  folderName: 'calendar-service'
 
 stages:
   - stage: Build_all

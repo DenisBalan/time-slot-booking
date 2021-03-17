@@ -13,7 +13,7 @@ resources:
 variables:
   tag: 'latest'
   dockerHub: 'docker-denisbalan'
-  folderName: 'configuration'
+  folderName: 'eureka-registry'
 
 stages:
   - stage: Build_all
@@ -32,4 +32,5 @@ stages:
           tag: $(tag)
           imageName: denisbalan/time-slot-$(folderName)
           folderName: $(folderName)
+
 
