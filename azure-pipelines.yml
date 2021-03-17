@@ -1,0 +1,37 @@
+parameters:
+  dockerHub: ''
+  tag: ''
+  imageName: ''
+  folderName: ''
+
+variables:
+  dockerHub: '${{ parameters.dockerHub }}'
+  tag: '${{ parameters.tag }}'
+  imageName: '${{ parameters.imageName }}'
+  folderName: '${{ parameters.folderName }}'
+
+stages:
+- stage: Build
+  displayName: Build image
+  jobs:  
+  - job: Build
+    displayName: Build
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - task: Docker@2
+      inputs:
+        containerRegistry: '$(dockerHub)'
+        repository: '$(imageName)'
+        command: 'build'
+        Dockerfile: '**/$(folderName)/Dockerfile'
+        buildContext: '**/$(folderName)/'
+        tags: '$(tag)'
+    - task: Docker@2
+      displayName: Push image
+      inputs:
+        containerRegistry: '$(dockerHub)'
+        repository: '$(imageName)'
+        command: 'push'
+        tags: |
+          $(tag)
