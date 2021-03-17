@@ -28,7 +28,7 @@ stages:
             displayName: Init
       - template: deploy.yml
         parameters:
-          name: $(name)
+          name: static_build
           dockerHub: $(dockerHub)
           tag: $(tag)
           imageName: time-slot-$(folderName)
