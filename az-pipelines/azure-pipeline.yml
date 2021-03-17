@@ -12,7 +12,7 @@ parameters:
   type: object
   default:
    - configuration
-   - eureka-registry
+   - gateway
 
 variables:
   tag: 'latest'
