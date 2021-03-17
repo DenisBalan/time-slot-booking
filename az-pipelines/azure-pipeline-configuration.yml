@@ -28,6 +28,7 @@ stages:
         steps:
           - pwsh: |     
               Write-Host "Init"
+              find | sed 's|[^/]*/|- |g'
             displayName: Init
       - ${{each folderName in parameters.folders}}:
         - template: deploy.yml
