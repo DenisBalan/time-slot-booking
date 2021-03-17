@@ -18,7 +18,7 @@ jobs:
         repository: '${{ parameters.imageName }}'
         command: 'build'
         Dockerfile: '**/${{ parameters.folderName }}/Dockerfile'
-        buildContext: '**/${{ parameters.folderName }}/'
+        buildContext: 'src/${{ parameters.folderName }}/'
         tags: '${{ parameters.tag }}'
     - task: Docker@2
       displayName: 'Push image ${{ parameters.imageName }}'
