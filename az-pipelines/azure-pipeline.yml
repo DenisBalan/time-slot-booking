@@ -24,7 +24,7 @@ stages:
       - ${{each folderName in parameters.folders}}:
         - template: deploy.yml
           parameters:
-            dockerHub: '$(dockerHub)'
-            tag: '$(tag)'
-            imageName: 'time-slot-$(folderName)'
-            folderName: 'src/$(folderName)'
+            dockerHub: $(dockerHub)
+            tag: $(tag)
+            imageName: time-slot-$(folderName)
+            folderName: src/$(folderName)
