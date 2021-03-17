@@ -6,9 +6,7 @@ parameters:
 
 jobs:  
   - deployment: Build and push
-    displayName: 'Build docker image $(imageName)'
-    variables: 
-      - ${{ parameters }}
+    displayName: 'Build docker image ${{ parameters.imageName }})'
     pool:
       vmImage: 'ubuntu-latest'
     environment: 'dev'
@@ -17,19 +15,19 @@ jobs:
         deploy:
           steps:
             - task: Docker@2
-              displayName: 'Build locally image $(imageName)'
+              displayName: 'Build locally image ${{ parameters.imageName }}'
               inputs:
-                containerRegistry: '$(dockerHub)'
-                repository: '$(imageName)'
+                containerRegistry: '${{ parameters.dockerHub }}'
+                repository: '${{ parameters.imageName }}'
                 command: 'build'
-                Dockerfile: '**/$(folderName)/Dockerfile'
-                buildContext: '**/$(folderName)/'
-                tags: '$(tag)'
+                Dockerfile: '**/${{ parameters.folderName }}/Dockerfile'
+                buildContext: '**/${{ parameters.folderName }}/'
+                tags: '${{ parameters.tag }}'
             - task: Docker@2
-              displayName: 'Push image $(imageName)'
+              displayName: 'Push image ${{ parameters.imageName }}'
               inputs:
-                containerRegistry: '$(dockerHub)'
-                repository: '$(imageName)'
+                containerRegistry: '${{ parameters.dockerHub }}'
+                repository: '${{ parameters.imageName }}'
                 command: 'push'
                 tags: |
-                  $(tag)
+                  '${{ parameters.tag }}'
