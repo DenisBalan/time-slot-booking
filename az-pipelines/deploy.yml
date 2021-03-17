@@ -2,32 +2,29 @@ parameters:
   dockerHub: ''
   tag: ''
   imageName: ''
-  name: ''
   folderName: ''
 
 jobs:  
-  - deployment: ${{ parameters.name }}
-    displayName: 'Build docker image ${{ parameters.imageName }}'
-    pool:
-      vmImage: 'ubuntu-latest'
-    environment: 'dev'
-    strategy: 
-      runOnce: 
-        deploy:
-          steps:
-            - task: Docker@2
-              displayName: 'Build locally image ${{ parameters.imageName }}'
-              inputs:
-                containerRegistry: '${{ parameters.dockerHub }}'
-                repository: '${{ parameters.imageName }}'
-                command: 'build'
-                Dockerfile: '**/${{ parameters.folderName }}/Dockerfile'
-                buildContext: '**/${{ parameters.folderName }}/'
-                tags: '${{ parameters.tag }}'
-            - task: Docker@2
-              displayName: 'Push image ${{ parameters.imageName }}'
-              inputs:
-                containerRegistry: '${{ parameters.dockerHub }}'
-                repository: '${{ parameters.imageName }}'
-                command: 'push'
-                tags: '${{ parameters.tag }}'
+- job: Build and push
+  displayName: 'Build docker image $(imageName)'
+  variables: 
+    - ${{ parameters }}
+  pool:
+    vmImage: 'ubuntu-latest'
+  steps:
+    - task: Docker@2
+      displayName: 'Build locally image ${{ parameters.imageName }}'
+      inputs:
+        containerRegistry: '${{ parameters.dockerHub }}'
+        repository: '${{ parameters.imageName }}'
+        command: 'build'
+        Dockerfile: '**/${{ parameters.folderName }}/Dockerfile'
+        buildContext: '**/${{ parameters.folderName }}/'
+        tags: '${{ parameters.tag }}'
+    - task: Docker@2
+      displayName: 'Push image ${{ parameters.imageName }}'
+      inputs:
+        containerRegistry: '${{ parameters.dockerHub }}'
+        repository: '${{ parameters.imageName }}'
+        command: 'push'
+        tags: '${{ parameters.tag }}'
