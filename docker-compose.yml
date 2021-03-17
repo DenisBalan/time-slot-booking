@@ -35,7 +35,7 @@ services:
       - "./data/rabbitmq:/data"
       
   time-slot-configuration:
-    image: "denisbalan/configuration"
+    image: "denisbalan/time-slot-configuration"
     healthcheck:
       test: ["CMD-SHELL", "netstat -tulpn | grep LISTEN"]
       interval: 10s
@@ -46,7 +46,7 @@ services:
     depends_on:
       time-slot-configuration:
         condition: service_healthy
-    image: "denisbalan/eureka-registry"
+    image: "denisbalan/time-slot-eureka-registry"
     healthcheck:
       test: ["CMD-SHELL", "netstat -tulpn | grep LISTEN"]
       interval: 10s
@@ -57,7 +57,7 @@ services:
     depends_on:
       time-slot-eureka-registry:
         condition: service_healthy
-    image: "denisbalan/turbine-stream-service"
+    image: "denisbalan/time-slot-turbine-stream-service"
     healthcheck:
       test: ["CMD-SHELL", "netstat -tulpn | grep LISTEN"]
       interval: 10s
@@ -68,7 +68,7 @@ services:
     depends_on:
       time-slot-turbine-stream-service:
         condition: service_healthy
-    image: "denisbalan/hystrix-monitoring"
+    image: "denisbalan/time-slot-hystrix-monitoring"
     healthcheck:
       test: ["CMD-SHELL", "netstat -tulpn | grep LISTEN"]
       interval: 10s
@@ -79,7 +79,7 @@ services:
     depends_on:
       time-slot-hystrix-monitoring:
         condition: service_healthy
-    image: "denisbalan/authentication-service"
+    image: "denisbalan/time-slot-authentication-service"
     healthcheck:
       test: ["CMD-SHELL", "netstat -tulpn | grep LISTEN"]
       interval: 10s
@@ -90,7 +90,7 @@ services:
     depends_on:
       time-slot-authentication-service:
         condition: service_healthy
-    image: "denisbalan/account-service"    
+    image: "denisbalan/time-slot-account-service"    
     healthcheck:
       test: ["CMD-SHELL", "netstat -tulpn | grep LISTEN"]
       interval: 10s
@@ -101,7 +101,7 @@ services:
     depends_on:
       time-slot-account-service:
         condition: service_healthy
-    image: "denisbalan/calendar-service"    
+    image: "denisbalan/time-slot-calendar-service"    
     healthcheck:
       test: ["CMD-SHELL", "netstat -tulpn | grep LISTEN"]
       interval: 10s
@@ -112,7 +112,7 @@ services:
     depends_on:
       time-slot-calendar-service:
         condition: service_healthy
-    image: "denisbalan/notification-service"    
+    image: "denisbalan/time-slot-notification-service"    
     healthcheck:
       test: ["CMD-SHELL", "netstat -tulpn | grep LISTEN"]
       interval: 10s
@@ -129,7 +129,7 @@ services:
         condition: service_healthy
       time-slot-notification-service:
         condition: service_healthy
-    image: "denisbalan/gateway"
+    image: "denisbalan/time-slot-gateway"
     ports:
       - 80:4000
     
