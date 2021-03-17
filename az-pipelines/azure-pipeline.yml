@@ -17,9 +17,6 @@ parameters:
 variables:
   tag: 'latest'
   dockerHub: 'docker-denisbalan'
-  
-pool:
-  vmImage: 'ubuntu-latest'
 
 stages:
   - stage: Build all

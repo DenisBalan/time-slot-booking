@@ -29,5 +29,4 @@ jobs:
                 containerRegistry: '${{ parameters.dockerHub }}'
                 repository: '${{ parameters.imageName }}'
                 command: 'push'
-                tags: |
-                  '${{ parameters.tag }}'
+                tags: '${{ parameters.tag }}'
