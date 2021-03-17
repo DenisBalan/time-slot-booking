@@ -27,7 +27,7 @@ stages:
           - pwsh: |     
               Write-Host "Init"
             displayName: Init
-      - ${{each folderName in variables.folders}}:
+      - ${{each folderName in parameters.folders}}:
         - template: deploy.yml
           parameters:
             dockerHub: '$(dockerHub)'
