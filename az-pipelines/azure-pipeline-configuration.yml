@@ -14,7 +14,7 @@ variables:
   tag: 'latest'
   dockerHub: 'docker-denisbalan'
   folderName: 'configuration'
-  name: 'static-build'
+  name: 'static_build'
 
 stages:
   - stage: Build_all
