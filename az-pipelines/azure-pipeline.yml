@@ -19,7 +19,7 @@ variables:
   dockerHub: 'docker-denisbalan'
 
 stages:
-  - stage: Init
+  - stage: Build_all
     jobs:
       - job: Init
         displayName: Init
@@ -27,8 +27,6 @@ stages:
           - pwsh: |     
               Write-Host "Init"
             displayName: Init
-  - stage: Build_all
-    jobs:
       - ${{each folderName in variables.folders}}:
         - template: deploy.yml
           parameters:
