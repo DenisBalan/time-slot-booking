@@ -9,8 +9,10 @@ trigger:
       
 parameters:
 - name: 'folders'
-  type: string
-  default: 'configuration'
+  type: object
+  default:
+   - configuration
+   - eureka-registry
 
 variables:
   tag: 'latest'
@@ -19,9 +21,17 @@ variables:
 stages:
   - stage: Build_all
     jobs:
+      - ${{each folderName in variables.folders}}:
         - template: deploy.yml
           parameters:
             dockerHub: '$(dockerHub)'
             tag: '$(tag)'
-            imageName: 'time-slot-${{ parameters.folders }}'
-            folderName: 'src/${{ parameters.folders }}'
+            imageName: 'time-slot-$(folderName)'
+            folderName: 'src/$(folderName)'
+    # jobs:
+        # - template: deploy.yml
+          # parameters:
+            # dockerHub: '$(dockerHub)'
+            # tag: '$(tag)'
+            # imageName: 'time-slot-${{ parameters.folders }}'
+            # folderName: 'src/${{ parameters.folders }}'
