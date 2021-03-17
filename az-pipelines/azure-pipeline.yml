@@ -25,7 +25,7 @@ stages:
         displayName: Init
         steps:
           - pwsh: |     
-              Write-Host "Init"
+              Write-Host "${{ parameters.folders }}"
             displayName: Init
       - ${{each folderName in parameters.folders}}:
         - template: deploy.yml
@@ -33,7 +33,7 @@ stages:
             dockerHub: '$(dockerHub)'
             tag: '$(tag)'
             imageName: 'time-slot-$(folderName)'
-            folderName: 'src/$(folderName)'
+            folderName: '$(folderName)'
     # jobs:
         # - template: deploy.yml
           # parameters:
