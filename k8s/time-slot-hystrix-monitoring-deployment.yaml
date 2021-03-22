@@ -31,6 +31,8 @@ spec:
         livenessProbe:
           exec:
             command:
+            - /bin/sh
+            - -c
             - netstat -tulpn | grep LISTEN
           failureThreshold: 5
           periodSeconds: 10
