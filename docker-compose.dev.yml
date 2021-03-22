@@ -23,6 +23,8 @@ services:
       
   time-slot-configuration:
     build: ./src/configuration
+    ports:
+      - 8888:8888
       
   time-slot-eureka-registry:
     build: ./src/eureka-registry
@@ -50,12 +52,12 @@ services:
       - 6000:6000
     
   time-slot-calendar-service:
-    build: ./src/account-service
+    build: ./src/calendar-service
     ports:
       - 6500:6500
     
   time-slot-notification-service:
-    build: ./src/account-service
+    build: ./src/notification-service
     ports:
       - 8000:8000
     
