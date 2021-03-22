@@ -1,6 +1,5 @@
 package com.timebook.calendar.domain.timeseries;
 
-import com.timebook.calendar.domain.Currency;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
