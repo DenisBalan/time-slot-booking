@@ -30,7 +30,20 @@ spec:
         imagePullPolicy: ""
         name: time-slot-account-service-mongodb
         resources: {}
+        volumeMounts:
+        - mountPath: /docker-entrypoint-initdb.d/
+          name: account-service-mongodb-storage
+        - mountPath: /data/db/
+          name: account-service-mongodb-storage-data
       restartPolicy: Always
       serviceAccountName: ""
-      volumes: null
+      volumes:
+        - name: account-service-mongodb-storage
+          hostPath:
+            path: /run/desktop/mnt/host/c/denis/time-slot-booking/seed/account-service-mongodb
+            type: Directory
+        - name: account-service-mongodb-storage-data
+          hostPath:
+            path: /run/desktop/mnt/host/c/denis/time-slot-booking/data/account-service-mongodb
+            type: DirectoryOrCreate
 status: {}
