@@ -9,6 +9,8 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-    
+    env:
+      CONNECTION_STRING: ${{ secrets.CONNECTION_STRING }}
+      SALESFORCE_ENDPOINT: ${{ secrets.SALESFORCE_ENDPOINT }}
     steps:
     - run: printenv
